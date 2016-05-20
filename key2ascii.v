@@ -1,4 +1,6 @@
 //Listing 9.4
+//Convierte el código de la tecla en el correspondiente código ascii
+
 module key2ascii
    (
     input wire [7:0] key_code,
@@ -58,8 +60,14 @@ always @*
        8'h4a: ascii_code = 8'h2f;   // /
 
        8'h29: ascii_code = 8'h20;   // (space)
-       8'h5a: ascii_code = 8'h0d;   // (enter, cr)
+       8'h5a: ascii_code = 8'h0d;   // (enter, cr) para indicar que los datos estan configurados
        8'h66: ascii_code = 8'h08;   // (backspace)
+       
+       // Teclas de dirección en teclado numerico utilizadas para configurar parámetros 
+       8'h75: ascii_code = 8'h38;   // 8 (arriba)
+       8'h72: ascii_code = 8'h32;   // 2 (abajo)
+       8'h74: ascii_code = 8'h36;   // 6 (derecha)
+       8'h6b: ascii_code = 8'h34;   // 4 (izquierda)
        default: ascii_code = 8'h2a; // *
     endcase
 
