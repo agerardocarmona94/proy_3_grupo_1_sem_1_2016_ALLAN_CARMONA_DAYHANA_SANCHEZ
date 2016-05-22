@@ -1,0 +1,59 @@
+?Ô?ª?ø
+; defino los registros en donde van a ir las salidas
+; 
+control_listo       dsout       1
+control_escribe     dsout      2
+control_lee         dsout       3
+escribe_dato        dsout       4
+escribe_dir         dsout       5
+
+; defino los puertos de entrada, los que van al MUX de los esquematicos
+listo               dsin       6
+listo_escribe       dsin       7
+listo_lee           dsin       8
+
+; defino los valores que voy a ocupar en el transcurso, ingresar ac√° cada registro necesario
+
+s0                  dsin       status
+s1                  dsin       dat_dir_0
+s2                  dsin       dat_dir_1
+s3                  dsin       dat_dir_2
+s4                  dsin       uno
+s5                  dsin       listo_reg           ; prueba
+
+
+Iniciar:            LOAD      dat_dir_0, 2
+                    LOAD      dat_dir_1, 16
+                    LOAD      dat_dir_2, 0
+                    LOAD      dat_dir_3, $D2
+                    LOAD      uno, 1
+                    LOAD      listo_reg, 1        ; para probar el bucl
+
+                    CALL      secuencia_de_inicializacion
+                    CALL      leer                ; , lee los datos provenientes del rtc
+                    CALL      escribir            ; , tener en cuenta las interrupcones
+
+; La maquina de estados 'iniciar' debe generar una bandera cuando le llegue cuando el pico le envie control_listo en alto,
+; hasta que la maquina no envie listo en alto se esperara mediante el cilo la carga de los datos, cuando esta termine levanta
+; la bandera de listo y se sale del ciclo, asi como el pico pone a control_listo en bajo
+; ciclo_listo se intancia en secuencia_de_inicializacio, cuando bucle de c-listo, se hace un jump a leer para conocer el estado
+; del rtc
+
+secuencia_de_inicializacion: OUT dat_dir_0, escribe_dir
+                    OUT       dat_dir_1, escribe_dato
+                    CALL      ciclo_listo         ; acomadar dentro del inicializado
+; falta algo
+                    OUT       dat_dir_0, escribe_dir
+                    OUT       dat_dir_2, escribe_dato
+                    CALL      ciclo_listo         ; acomadar dentro del inicializado
+; falta algo
+                    OUT       dat_dir_1, escribe_dir
+                    OUT       dat_dir_3, escribe_dato
+                    CALL      ciclo_listo         ; acomadar dentro del inicializado
+; falta algo
+                    RET       
+ciclo_listo:        SUB       uno, listo
+                    JUMP      NZ, ciclo_listo
+                    RET       
+
+; la escritura se debe realizar con interrupciones, ya que se utliza un perifirico para realizarla (teclado)
