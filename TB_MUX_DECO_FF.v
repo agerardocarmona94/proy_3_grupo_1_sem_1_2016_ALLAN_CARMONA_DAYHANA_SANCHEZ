@@ -70,7 +70,7 @@ module TB_MUX_DECO_FF;
 	begin
 	  rst = 1;
 	  #4
-	  reset = 0;
+	  rst = 0;
 	  #10
 	  	listo = 1;
 		#10
