@@ -1,0 +1,47 @@
+# Compile of TB_MUX_DECO_FF.v failed with 1 errors.
+# Compile of FFD.v was successful.
+# Compile of MUX_DECO.v was successful.
+# Compile of MUX_DECO_FF.v was successful.
+# 4 compiles, 1 failed with 1 error.
+# Compile of TB_MUX_DECO_FF.v was successful.
+# Compile of FFD.v was successful.
+# Compile of MUX_DECO.v was successful.
+# Compile of MUX_DECO_FF.v was successful.
+# 4 compiles, 0 failed with no errors.
+vsim -gui work.TB_MUX_DECO_FF
+# //  ModelSim PE Student Edition 10.4a Apr  7 2015 
+# //
+# //  Copyright 1991-2015 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //  THIS DOCUMENT CONTAINS TRADE SECRETS AND COMMERCIAL OR FINANCIAL
+# //  INFORMATION THAT ARE PRIVILEGED, CONFIDENTIAL, AND EXEMPT FROM
+# //  DISCLOSURE UNDER THE FREEDOM OF INFORMATION ACT, 5 U.S.C. SECTION 552.
+# //  FURTHERMORE, THIS INFORMATION IS PROHIBITED FROM DISCLOSURE UNDER
+# //  THE TRADE SECRETS ACT, 18 U.S.C. SECTION 1905.
+# //
+# // NOT FOR CORPORATE OR PRODUCTION USE.
+# // THE ModelSim PE Student Edition IS NOT A SUPPORTED PRODUCT.
+# // FOR HIGHER EDUCATION PURPOSES ONLY
+# //
+# vsim -gui 
+# Start time: 23:07:17 on May 22,2016
+# Loading work.TB_MUX_DECO_FF
+# Loading work.MUX_DECO_FF
+# Loading work.MUX_DECO
+# Loading work.FFD
+add wave -position insertpoint  \
+sim:/TB_MUX_DECO_FF/rst \
+sim:/TB_MUX_DECO_FF/clk \
+sim:/TB_MUX_DECO_FF/listo \
+sim:/TB_MUX_DECO_FF/listo_lee \
+sim:/TB_MUX_DECO_FF/listo_escribe \
+sim:/TB_MUX_DECO_FF/seleccion \
+sim:/TB_MUX_DECO_FF/salida_picoblaze
+run -all
+# ** Note: $stop    : C:/Users/lenovo/Documents/GitHub/proy_3_grupo_1_sem_1_2016_ALLAN_CARMONA_DAYHANA_SANCHEZ/TB_MUX_DECO_FF.v(112)
+#    Time: 1074 ns  Iteration: 0  Instance: /TB_MUX_DECO_FF
+# Break in Module TB_MUX_DECO_FF at C:/Users/lenovo/Documents/GitHub/proy_3_grupo_1_sem_1_2016_ALLAN_CARMONA_DAYHANA_SANCHEZ/TB_MUX_DECO_FF.v line 112
