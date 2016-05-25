@@ -27,9 +27,8 @@ module Control_RTC(
 	 
     );
 	 
-	 wire estado;
+	 wire estado
 	 
-	 	 
 	 Contador_Control_de_Tiempos Contador_Control_de_Tiempos (
     .clk(clk), 
     .PB_in(PB_in), 
@@ -39,7 +38,6 @@ module Control_RTC(
     .c_5(c_5)
     );
 	 
-
 	 Control_de_Tiempos Control_de_Tiempos (
     .enable_inicio(enable_inicio), 
     .enable_escribir(enable_escribir), 
