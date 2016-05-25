@@ -23,7 +23,7 @@ input wire interrupt,
 input wire sleep,
 input wire clk,
 input [7:0]in_port,
-//input reset,
+input rst,
 output write_strobe,
 output k_write_strobe,
 output read_strobe,
@@ -38,6 +38,11 @@ wire bram_enable;
 wire [11:0] address;
 wire rdl;
 wire [17:0] instruction;
+wire reset;
+
+
+assign reset= rdl || rst; 
+
 kcpsm6 kcpsm6 (
     .address(address), 
     .instruction(instruction), 
@@ -51,7 +56,7 @@ kcpsm6 kcpsm6 (
     .interrupt(interrupt), 
     .interrupt_ack(interrupt_ack), 
     .sleep(sleep), 
-    .reset(rdl), 
+    .reset(reset), 
     .clk(clk)
     );
 	 
