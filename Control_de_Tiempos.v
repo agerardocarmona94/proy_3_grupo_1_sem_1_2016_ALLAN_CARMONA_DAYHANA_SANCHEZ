@@ -1,5 +1,27 @@
 `timescale 1ns / 1ps
+<<<<<<< HEAD
 //Define que hace en cada estado del contador_control_de_Tiempos
+=======
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    17:47:06 04/11/2016 
+// Design Name: 
+// Module Name:    Control_de_Tiempos 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+>>>>>>> origin/master
 module Control_de_Tiempos(
 	 input enable_inicio,         
 	 input enable_escribir,
@@ -295,7 +317,11 @@ module Control_de_Tiempos(
           endcase		
 		 end
 		 else
+<<<<<<< HEAD
 		 begin // Para que agarre solo  el dato y no la direccion
+=======
+		 begin
+>>>>>>> origin/master
 		    		    case (estado)
           4'd0: begin
 					    CS <= 1; 
@@ -443,4 +469,7 @@ module Control_de_Tiempos(
 		 end
 	  end 
 endmodule
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master

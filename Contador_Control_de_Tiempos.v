@@ -1,9 +1,35 @@
 `timescale 1ns / 1ps
+<<<<<<< HEAD
 //Define los tiempos de las señales de control
 module Contador_Control_de_Tiempos(
     input reset,
     input clk,
 	 input listo_conf,
+=======
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    23:19:53 04/11/2016 
+// Design Name: 
+// Module Name:    Contador_Control_de_Tiempos 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module Contador_Control_de_Tiempos(
+    input reset,
+    input clk,
+	 input PB_in,
+>>>>>>> origin/master
 	 input enable_inicio,        
 	 input enable_escribir,
 	 input enable_leer,
@@ -28,7 +54,11 @@ module Contador_Control_de_Tiempos(
 	 else
 	 begin
 	 begin
+<<<<<<< HEAD
 	    if ((enable_escribir && listo_conf) || enable_inicio || (estado_m==3'd4) )
+=======
+	    if ((enable_escribir && PB_in) || enable_inicio || (estado_m==3'd4) )
+>>>>>>> origin/master
 		 begin
 			 if (posicion == 1)
 			 begin
@@ -314,4 +344,7 @@ module Contador_Control_de_Tiempos(
 		end
 		
    endmodule
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master

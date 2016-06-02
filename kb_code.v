@@ -1,5 +1,10 @@
 //Listing 9.3
+<<<<<<< HEAD
 `timescale 1ns / 1ps
+=======
+//se asume que una tecla es presionada y luego liberada y el circuito regresa el codigo de la tecla
+//Este codigo solo aplica para teclas regulares
+>>>>>>> origin/master
 
 module kb_code
  //  #(parameter W_SIZE = 2)  // 2^W_SIZE words in FIFO
@@ -11,7 +16,7 @@ module kb_code
    );
 
    // constant declaration
-   localparam BRK = 8'hf0; // break code
+   localparam BRK = 8'hf0; // código de parada
 
    // symbolic state declaration
    localparam
@@ -31,12 +36,32 @@ module kb_code
    // instantiate ps2 receiver
    ps2_rx ps2_rx_unit
       (.clk(clk), 
+<<<<<<< HEAD
 		 .reset(reset), 
 		 .rx_en(1'b1),
        .ps2d(ps2d), 
 		 .ps2c(ps2c),
        .rx_done_tick(scan_done_tick), 
 		 .dout(scan_out));
+=======
+       .reset(reset), 
+       .rx_en(1'b1),
+       .ps2d(ps2d), 
+       .ps2c(ps2c),
+       .rx_done_tick(scan_done_tick), //Se pone en 1 cuando todo el byte esta completo
+       .dout(scan_out));
+
+   // instantiate fifo buffer
+   fifo #(.B(8), .W(W_SIZE)) fifo_key_unit
+     (.clk(clk), 
+      .reset(reset), 
+      .rd(rd_key_code),
+      .wr(got_code_tick), 
+      .w_data(scan_out),
+      .empty(kb_buf_empty), 
+      .full(),
+      .r_data(key_code));
+>>>>>>> origin/master
 
    //=======================================================
    // FSM to get the scan code after F0 received
@@ -57,12 +82,17 @@ module kb_code
       case (state_reg)
          wait_brk:  // wait for F0 of break code
             if (scan_done_tick==1'b1 && scan_out==BRK)
+<<<<<<< HEAD
 				begin
 					state_next = get_code;
 					got_code_tick =1'b0;
 				end
 				
 			get_code:  // get the following scan code
+=======
+               state_next = get_code;
+         get_code:  // Espera por el siguiente paquete, el cual es el dato de la tecla
+>>>>>>> origin/master
             if (scan_done_tick)
 				begin
 					got_code_tick =1'b1;
