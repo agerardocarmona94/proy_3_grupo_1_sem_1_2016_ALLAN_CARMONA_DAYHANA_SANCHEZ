@@ -1,45 +1,47 @@
 //Listing 9.5
-//prueba ....
-module kb_test
+
+`timescale 1ns / 1ps
+
+module Keyboard 
    (
     input wire clk, reset,
     input wire ps2d, ps2c,
-    output wire tx
+	 input I_ack,
+	 output [N-1:0] key_code,
+	 output wire got_code_tick,
+	 output reg f1,f2,f3, listo_conf
    );
+	
+   parameter N=8;
+   
 
-   // signal declaration
-   wire [7:0] key_code, ascii_code;
-   wire kb_not_empty, kb_buf_empty;
 
-   // body
-   // instantiate keyboard scan code circuit
-   kb_code kb_code_unit
-      (.clk(clk), 
-		 .reset(reset), 
-		 .ps2d(ps2d), 
-		 .ps2c(ps2c),
-       .rd_key_code(kb_not_empty), 
-		 .key_code(key_code),
-       .kb_buf_empty(kb_buf_empty));
+   // Escaneo teclado
+	kb_code kb_code (
+    .clk(clk), 
+    .reset(reset), 
+    .ps2d(ps2d), 
+    .ps2c(ps2c), 
+    .key_code(key_code), 
+    .got_code_tick(got_code_tick)
+    );
+	
+	always @ (posedge clk)
+	begin
+	if (I_ack)
+		listo_conf<=0;
+	else
+		begin
+		 if (key_code== 8'h05)
+			 begin f1<=1; f2<=0; f3<=0; listo_conf<=0; end
+		 else if (key_code== 8'h06)
+			 begin f2<=1; f1<=0; f3<=0; listo_conf<=0; end
+		 else if (key_code== 8'h04)
+			 begin f3<=1; f1<=0; f2<=0; listo_conf<=0; end
+		 else if (key_code== 8'h79)
+			begin f1<=0; f2<=0; f3<=0; listo_conf<=1; end // + 
+		 end
+	end
 
-   // instantiate UART
-   uart uart_unit
-      (.clk(clk), 
-		 .reset(reset), 
-		 .rd_uart(1'b0),
-       .wr_uart(kb_not_empty), 
-		 .rx(1'b1), 
-		 .w_data(ascii_code),
-       .tx_full(), 
-		 .rx_empty(), 
-		 .r_data(), 
-		 .tx(tx));
-
-   // instantiate key-to-ascii code conversion circuit
-   key2ascii k2a_unit
-      (.key_code(key_code), 
-		 .ascii_code(ascii_code));
-
-   assign kb_not_empty = ~kb_buf_empty;
-
+	
 endmodule 

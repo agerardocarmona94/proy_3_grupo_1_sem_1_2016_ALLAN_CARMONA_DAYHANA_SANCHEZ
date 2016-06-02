@@ -1,5 +1,7 @@
 //Listing 9.1
-99module ps2_rx
+`timescale 1ns / 1ps
+
+module ps2_rx
    (
     input wire clk, reset,
     input wire ps2d, ps2c, rx_en,
@@ -87,7 +89,7 @@
                   if (n_reg==0)
                      state_next = load;
                   else
-                     n_next = n_reg - 1;
+                     n_next = n_reg - 1'b1;
                end
          load: // 1 extra clock to complete the last shift
             begin
