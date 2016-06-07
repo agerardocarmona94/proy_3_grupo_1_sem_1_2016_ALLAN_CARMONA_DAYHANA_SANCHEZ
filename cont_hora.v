@@ -1,10 +1,17 @@
 `timescale 1ns / 1ps
+//NOTA: El razonamiento utilizado para la explicación de este módulo es el mismo que para el de minutos y segundos
+// por lo que solo se explica una vez.
+// Este módulo realiza la cuenta correspondiente para el parámetro hora, por lo que su valor maximo es hasta 24
+// para poder cambiar este parámetro la señal de F1 o F3 deben de estar activas, las cuales indican que se esta 
+// cambiando el reloj o el cronometro.
+
 
 module cont_hora(
 	input clk, rst,
 	input [P-1:0]posicion,
 	input en_codigo, f1,f3,
-	input[N-1:0] key_code,
+	input[N-1:0] key_code, 
+	//input[N-1:0] Fs,
 	output reg[N-1:0] dato_hora
     );
 
@@ -13,11 +20,13 @@ parameter maximo =5'd24;
 parameter N=8;
 parameter P=2;
 
+
+
    always @ (posedge clk)
    begin
       if (rst)
          hora <= 0;
-		else if (posicion==2'd0 && (f1==1'b1 || f3==1'b1))
+		else if (posicion==2'd0 &&  (f1==1'b1 || f3==1'b1))
 		begin
 			if(en_codigo)
 			begin
@@ -45,7 +54,8 @@ parameter P=2;
 			hora <= hora;
 		
 	end
-	
+	// En esta sección se reliza internamente en el módulo la conversion a hexadeciamal para cada uno de los
+	//valores.
 	always @ (hora)
 		case (hora)
 		   0 : dato_hora <=8'h00;

@@ -1,12 +1,13 @@
 //Listing 9.1
+// Módulo utilizado para recopilar los pulsos de datos recibidos del teclado y así ensamblar el dato
 `timescale 1ns / 1ps
 
 module ps2_rx
    (
     input wire clk, reset,
     input wire ps2d, ps2c, rx_en,
-    output reg rx_done_tick,
-    output wire [7:0] dout
+    output reg rx_done_tick, // señal que indica cuando el paquete está completo
+    output wire [7:0] dout // dato de la tecla o F0
    );
 
    // symbolic state declaration
@@ -75,7 +76,7 @@ module ps2_rx
       b_next = b_reg;
       case (state_reg)
          idle:
-            if (fall_edge & rx_en)
+            if (fall_edge & rx_en) // Realiza el corrimiento para ensamblar el dato
                begin
                   // shift in start bit
                   b_next = {ps2d, b_reg[10:1]};
@@ -99,6 +100,6 @@ module ps2_rx
       endcase
    end
    // output
-   assign dout = b_reg[8:1]; // data bits
+   assign dout = b_reg[8:1]; // bus de 8 bits con el código de la tecla
 
 endmodule 

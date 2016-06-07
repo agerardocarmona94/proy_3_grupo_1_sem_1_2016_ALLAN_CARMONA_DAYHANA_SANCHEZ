@@ -1,9 +1,11 @@
 `timescale 1ns / 1ps
+// Este módulo se encarga de selecionar la posición a cambiar, por ejemplo si se va a cambiar la fecha se debe 
+//elegir entre dia, mes o año, por lo que este contador realiza esta distinción de posición.
 
 module Contador_Posicion(
 	input clk, rst,
-    input [N-1:0]key_code,
-	 input got_code_tick,
+    input [N-1:0]key_code, // recibe el código de la tecla presionada
+	 input got_code_tick, // señal que indica el momento de captura del codigo de la tecla
 	 output reg [P-1:0] posicion // --:--:--
     );
 	 

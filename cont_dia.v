@@ -1,5 +1,10 @@
 `timescale 1ns / 1ps
+//NOTA: La explicación de este módulo es la misma que para el de mes y año, por lo que su explicación solo se
+//realiza una vez.
 
+// Este módulo realiza la cuenta correspondiente para el parámetro dia, por lo que su valor maximo es hasta 31
+// para poder cambiar este parámetro la señal de F2 debe de estar activa, las cuale indica que se esta 
+// cambiando la fecha
 module cont_dia(
 	input clk, rst,
 	input [P-1:0]posicion,
@@ -44,7 +49,7 @@ parameter maximo =5'd31;
 		else 
 			dia <= dia;
 	end
-	
+	// Internamente en el código se realiza la conversion a hexadecimal para cada uno de los valores
 	always @(dia)
 	 case (dia)
           0 : dato_dia <=8'h00;
