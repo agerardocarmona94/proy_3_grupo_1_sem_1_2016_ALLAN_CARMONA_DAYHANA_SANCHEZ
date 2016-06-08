@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
-
+//Módulo encargado de recorrer la pantalla de manera horizontal y vertical, por medio de los contadores, generando a su vez en la salida 
+//las señales ADDRH y ADDRV, las cuales indican la posición del pixel.
 module VGAInterface(
-    input CLK,							//Clock signal of 25MHz
+    input CLK,							//Clock signal of 100MHz
 	 output REFRESH,				//gives trigger when display was refreshed
     input [7:0] COLOUR_IN,			//colour comes that should be displayd
     output reg [7:0] COLOUR_OUT,	//colour goes that was modified to produce colour_in at the rigth moment
