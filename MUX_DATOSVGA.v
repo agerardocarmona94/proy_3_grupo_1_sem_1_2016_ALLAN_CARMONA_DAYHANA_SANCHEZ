@@ -1,22 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    22:31:57 06/01/2016 
-// Design Name: 
-// Module Name:    MUX_DATOSVGA 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
+// En este modulo se controla cuando se tiene que llegar el bus de datos a los registros del VGA y cuando debe de llegar
+// directamente los registros de escritura con el fin de ver los camios en el VGA
 //////////////////////////////////////////////////////////////////////////////////
 module MUX_DATOSVGA(
 input seleccion,
