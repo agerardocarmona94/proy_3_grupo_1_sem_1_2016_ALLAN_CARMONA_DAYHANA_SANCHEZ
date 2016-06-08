@@ -1,23 +1,5 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    21:03:46 05/24/2016 
-// Design Name: 
-// Module Name:    MUX_SALIDA 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+// en este modulo se define si sale un dato o una direccion al bus de datos esterno
 module multiplexor_de_salida (
 
 input [7:0] direccion,
@@ -27,6 +9,6 @@ output [7:0] salida_bus
 
     );
 
-   assign salida_bus = seleccion ? dato : direccion;
+   assign salida_bus = seleccion ? dato : direccion; //condicion de salida para el mux
 
 endmodule
