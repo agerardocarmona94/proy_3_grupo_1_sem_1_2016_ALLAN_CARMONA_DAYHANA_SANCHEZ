@@ -1,22 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    04:46:02 06/03/2016 
-// Design Name: 
-// Module Name:    deteccion_alerta 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
+//En este modulo se detecta cuando los datos de la alarma son iguales para que se active la alarma 
 //////////////////////////////////////////////////////////////////////////////////
 module deteccion_alerta(
 input [7:0] dato1,dato2,dato3,VGA1,VGA2,VGA3,
