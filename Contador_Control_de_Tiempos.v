@@ -2,7 +2,7 @@
 //---------------------------------------------------------------------
 /*
 Este modulo es una parte de la maquina de estados que controla la secuencia de lectura o escritura +
-en el rtc, para poder concretar ciclos bien sincronizados para el RTC se utilizÛ una cuenta interna de manera que cumplan los tiempos descritos en la hoja de datos
+en el rtc, para poder concretar ciclos bien sincronizados para el RTC se utiliz√≥ una cuenta interna de manera que cumplan los tiempos descritos en la hoja de datos
 
 
 
@@ -13,9 +13,9 @@ module Contador_Control_de_Tiempos(
     input reset,
     input clk,
 	 input PB_in,
-	 input enable_inicio,  //esta seÒal es para que arranque el inicio de la maquina      
-	 input enable_escribir,//esta seÒal es para que se active la escritura de la maquina 
-	 input enable_leer, //esta seÒal es para que se active la lectura de la maquina 
+	 input enable_inicio,  //esta se√±al es para que arranque el inicio de la maquina      
+	 input enable_escribir,//esta se√±al es para que se active la escritura de la maquina 
+	 input enable_leer, //esta se√±al es para que se active la lectura de la maquina 
 	 input [2:0] estado_m, //antigua entrada que no se utiliza
     output [3:0] c_5 //salida del estado actual
     );
@@ -37,7 +37,7 @@ module Contador_Control_de_Tiempos(
 	 else
 	 begin
 	 begin
-	    if ((enable_escribir && PB_in) || enable_inicio || (estado_m==3'd4) )
+	    if ((enable_escribir && PB_in) || enable_inicio || (estado_m==3'd4) ) //se√±ales de habilitacion para escribir o inicializar
 		 begin
 			 if (posicion == 1)
 			 begin
@@ -175,7 +175,7 @@ module Contador_Control_de_Tiempos(
                endcase	
             end				 
 		   end
-		 else
+		 else //activacion de lectura
 		 if (enable_leer)
 		 begin
 		    if (posicion == 0)
