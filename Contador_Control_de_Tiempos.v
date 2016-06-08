@@ -1,40 +1,23 @@
 `timescale 1ns / 1ps
-<<<<<<< HEAD
-//Define los tiempos de las señales de control
-module Contador_Control_de_Tiempos(
-    input reset,
-    input clk,
-	 input listo_conf,
-=======
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    23:19:53 04/11/2016 
-// Design Name: 
-// Module Name:    Contador_Control_de_Tiempos 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+//---------------------------------------------------------------------
+/*
+Este modulo es una parte de la maquina de estados que controla la secuencia de lectura o escritura +
+en el rtc, para poder concretar ciclos bien sincronizados para el RTC se utilizó una cuenta interna de manera que cumplan los tiempos descritos en la hoja de datos
+
+
+
+
+*/
+//---------------------------------------------------------------------
 module Contador_Control_de_Tiempos(
     input reset,
     input clk,
 	 input PB_in,
->>>>>>> origin/master
-	 input enable_inicio,        
-	 input enable_escribir,
-	 input enable_leer,
-	 input [2:0] estado_m,
-    output [3:0] c_5
+	 input enable_inicio,  //esta señal es para que arranque el inicio de la maquina      
+	 input enable_escribir,//esta señal es para que se active la escritura de la maquina 
+	 input enable_leer, //esta señal es para que se active la lectura de la maquina 
+	 input [2:0] estado_m, //antigua entrada que no se utiliza
+    output [3:0] c_5 //salida del estado actual
     );
 	 
 	 reg [5:0] Cuenta_Interna = 0;
@@ -54,11 +37,7 @@ module Contador_Control_de_Tiempos(
 	 else
 	 begin
 	 begin
-<<<<<<< HEAD
-	    if ((enable_escribir && listo_conf) || enable_inicio || (estado_m==3'd4) )
-=======
 	    if ((enable_escribir && PB_in) || enable_inicio || (estado_m==3'd4) )
->>>>>>> origin/master
 		 begin
 			 if (posicion == 1)
 			 begin
@@ -344,7 +323,3 @@ module Contador_Control_de_Tiempos(
 		end
 		
    endmodule
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master

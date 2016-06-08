@@ -1,0 +1,349 @@
+
+;programa en ensamblador para control del rtc
+
+;--------------------------------------------------
+
+;Primero se definen cada una de las contantes para la definicion de puertos de entrada y salida
+
+;-------------------------------------------------
+
+;PUERTOS ENTRADA
+
+
+CONSTANT      X_10, 05; 10 CUENTA inicializacion
+CONSTANT      X_21, 07; D2 CUENTA inicializacion 
+CONSTANT      X_1,       09; f1 CUENTA carga clock
+CONSTANT      X_21,      0A; 21 CUENTA segundo
+CONSTANT      X_22,      0B; 22 CUENTA minuto
+CONSTANT      X_23,      0C; 23 CUENTA hora
+CONSTANT      X_24,      0D; 24 CUENTA dia
+CONSTANT      X_25,      0E; 25 CUENTA mes
+CONSTANT      X_26,      0F; 26 CUENTA año
+CONSTANT      X_41,      10; 41 CUENTA seg crono
+CONSTANT      X_42,      11; 42 CUENTA min crono
+CONSTANT      X_43,      12; 43 CUENTA hora crono
+CONSTANT      CERO, 06; 		CONSTANTE 0 
+CONSTANT      UNO, 08; 		CONSTANTE 1
+CONSTANT      DOS, 04; 		CONSTANTE 2
+CONSTANT      TRES,    13  ;	CONSTANTE 3
+CONSTANT      CUATRO,  14  ;	CONSTANTE 4
+CONSTANT      CINCO,   15 ; 	CONSTANTE 5
+CONSTANT      SEIS,    16; 		CONSTANTE 6
+CONSTANT      SIETE,   17 ;		CONSTANTE 7
+CONSTANT      OCHO,    18; 		CONSTANTE 8
+CONSTANT      REGISTRO_1,   1A;		ENTRADA DE FECHA
+CONSTANT      REGISTRO_2,   1B;		ENTRADA DE RELOJ
+CONSTANT      REGISTRO_3,   1C;		ENTRADA DE CRONOMETRO
+CONSTANT      REINICIO_CRONO,1E;		REINICIO CORNOMETRO
+CONSTANT	   X_0,1F; 		CONSTANTE F0 ESCRITURA
+CONSTANT      X_2,20;			CONSTANTE F1 ESCRITURA
+
+;PUERTOS SALIDA
+
+CONSTANT ENABLE_INICIALIZACION ,  01   ;SEÑAL FSM    
+CONSTANT ENABLE_ESCRITURA, 02   ;SEÑAL FSM      
+CONSTANT ENABLE_LECTURA,     03   ;SEÑAL FSM         
+CONSTANT DATO_SALIDA,    04       
+CONSTANT CUENTA_SALIDA,     05 
+CONSTANT CUENTA,       06 ; señala en que parte se va leyendo o escribiendo
+CONSTANT LISTO_FSM,01		;SEÑAL FSM    
+
+
+CONSTANT GUARDAR, 19
+CONSTANT  GUARDAR_2, 1D
+
+CALL     INICIALIZACION; 
+
+INICIALIZACION:           
+		    
+		    
+		    INPUT    s0, DOS
+                    INPUT    s1, X_10
+                    INPUT    s2, CERO
+                    INPUT    s3, X_D1
+                    INPUT    s4, UNO 
+	               INPUT    s6, X_21
+                    CALL     secuencia_de_inicializacion
+                    CALL     LECTURA; 
+                    JUMP INICIALIZACION                    
+
+
+secuencia_de_inicializacion:   OUTPUT   s0, CUENTA_SALIDA
+                               OUTPUT   s1, DATO_SALIDA
+                               OUTPUT   s4, ENABLE_INICIALIZACION
+                               CALL     BUCLE_ESPERA_FSM 
+                                                             
+                               OUTPUT   s0, CUENTA_SALIDA
+                               OUTPUT   s2, DATO_SALIDA
+                               OUTPUT   s4, ENABLE_INICIALIZACION
+                               CALL     BUCLE_ESPERA_FSM   
+                               
+                               OUTPUT   s1, CUENTA_SALIDA
+                               OUTPUT   s3, DATO_SALIDA
+                               OUTPUT   s4, ENABLE_INICIALIZACION
+                               CALL     BUCLE_ESPERA_FSM                                
+                               RETURN
+                               
+LECTURA:   INPUT  s0, X_1
+        OUTPUT s0, CUENTA_SALIDA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_21; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, CERO;CUENTA 0 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_22; minuto
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, UNO ;CUENTA 1
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_23; hora
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, DOS ;CUENTA 1
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_24; dia
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, TRES;CUENTA 3
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_25; mes
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, CUATRO;CUENTA 4
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_26; año
+        OUTPUT s6,  CUENTA_SALIDA
+        INPUT  s7, CINCO;CUENTA 5
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+
+        INPUT  s0, X_2
+        OUTPUT s0, CUENTA_SALIDA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+       
+	   INPUT  s6, X_41; segundo crono
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, SEIS;CUENTA 5
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+
+	  INPUT  s6, X_42; minuto crono 
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, SIETE;CUENTA 5
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+
+	   INPUT  s6, X_43; hora crono
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  s7, OCHO;CUENTA 5
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_LECTURA
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s7, UNO
+	   INPUT    sC, GUARDAR_2
+        COMPARE sC, s7
+        CALL Z, ESCRITURA
+
+       INPUT s6, REINICIO_CRONO; reset crono
+	  INPUT  s7, UNO
+        COMPARE s6, s7
+	  CALL Z, RESET_CRONOMETRO
+
+	   
+
+        JUMP LECTURA
+
+BUCLE_ESPERA_FSM:        INPUT     s5, LISTO_FSM
+                    COMPARE   s4, s5
+                    JUMP      NZ, BUCLE_ESPERA_FSM
+                    RETURN       
+
+
+ESCRITURA:
+	INPUT    sA, GUARDAR
+	COMPARE sA, 7D  ; fecha
+	JUMP Z, CAMBIO_FECHA
+	COMPARE sA, 6C  ; reloj
+	JUMP Z, CAMBIO_RELOJ
+	COMPARE sA, 75  ; cronometro
+     JUMP Z, CAMBIO_CRONOMETRO	
+
+	RETURN
+
+
+CAMBIO_FECHA: 
+        INPUT  s6, X_24; dia
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  sB, REGISTRO_1; dia
+        OUTPUT sB, DATO_SALIDA
+        INPUT  s7, TRES;CUENTA 3
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+        INPUT  s6, X_25; mes
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  sB, REGISTRO_2; mes
+        OUTPUT sB, DATO_SALIDA
+        INPUT  s7, CUATRO;CUENTA 4
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA  
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_26; año
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  sB, REGISTRO_3; año
+        OUTPUT sB, DATO_SALIDA
+        INPUT  s7, CINCO;CUENTA 5
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA  
+        CALL     BUCLE_ESPERA_FSM
+        
+        INPUT  s0, X_1
+        OUTPUT s0, CUENTA_SALIDA
+	   OUTPUT s4, ENABLE_ESCRITURA 
+	   CALL     BUCLE_ESPERA_FSM 
+
+        JUMP LECTURA
+        
+CAMBIO_RELOJ: 
+        
+	  
+        INPUT  s6, X_21; segundo
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  sB, REGISTRO_1; minuto
+        OUTPUT sB, DATO_SALIDA
+        INPUT  s7, CERO;CUENTA 0
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA  
+        CALL     BUCLE_ESPERA_FSM 
+        
+
+        INPUT  s6, X_22; minuto
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  sB, REGISTRO_2; minuto
+        OUTPUT sB, DATO_SALIDA
+        INPUT  s7, UNO ;CUENTA 1
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA  
+        CALL     BUCLE_ESPERA_FSM 
+        
+        INPUT  s6, X_23; hora
+        OUTPUT s6, CUENTA_SALIDA
+        INPUT  sB, REGISTRO_3; hora
+        OUTPUT sB, DATO_SALIDA
+        INPUT  s7, DOS ;CUENTA 2
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA  
+        CALL     BUCLE_ESPERA_FSM
+
+        INPUT  s0, X_1
+        OUTPUT s0, CUENTA_SALIDA
+	   OUTPUT s4, ENABLE_ESCRITURA 
+        CALL     BUCLE_ESPERA_FSM 
+
+	   JUMP LECTURA
+CAMBIO_CRONOMETRO: 
+
+
+        OUTPUT s2, CUENTA_SALIDA
+        INPUT  sB, OCHO; segundos
+        OUTPUT sB, DATO_SALIDA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+
+        INPUT  s6, X_41; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        INPUT  s7, SEIS ;CUENTA 6 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+        INPUT  s6, X_42; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        INPUT  s7, SIETE ;CUENTA 7 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+        
+        INPUT  s6, X_43; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        INPUT  s7, OCHO ;CUENTA 8 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+
+        INPUT  s0, X_2
+        OUTPUT s0, CUENTA_SALIDA
+	   OUTPUT s4, ENABLE_ESCRITURA 
+        CALL     BUCLE_ESPERA_FSM 
+
+        
+        JUMP LECTURA
+
+RESET_CRONOMETRO:
+
+        INPUT  s6, X_41; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        INPUT  s7, SEIS ;CUENTA 6 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+        INPUT  s6, X_42; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        INPUT  s7, SIETE ;CUENTA 7 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+        
+        INPUT  s6, X_43; segundos
+        OUTPUT s6, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        INPUT  s7, OCHO ;CUENTA 8 
+        OUTPUT s7, CUENTA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM 
+
+
+        INPUT  s0, X_2
+        OUTPUT s0, CUENTA_SALIDA
+	   OUTPUT s4, ENABLE_ESCRITURA 
+        CALL     BUCLE_ESPERA_FSM
+
+
+	   OUTPUT s2, CUENTA_SALIDA
+        OUTPUT s2, DATO_SALIDA
+        OUTPUT s4, ENABLE_ESCRITURA
+        CALL     BUCLE_ESPERA_FSM
+
+	   RETURN 
+
+	   
