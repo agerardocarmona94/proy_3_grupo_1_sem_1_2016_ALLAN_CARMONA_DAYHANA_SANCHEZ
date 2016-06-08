@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
-
+//m贸dulo encargado de encapsular los bloques del control del VGA, en el ingresan todos los datos de los registros que almacenan el dato de
+// hora, min, seg, dia, mes, a帽o y los de cronometro, en sus salidas se tienen las se帽ales de sincronizaci贸n para enviar por el VGA, as铆
+// como el bus COLOUR OUT el cual se encarga de definir el color del texto o figura a mostrar en la pantalla
 module MainActivity(
  input [3:0]d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12,d13,d14,d15,d16,d17,d18,// digitos de fecha
 	input CLK,					//clock signal
@@ -20,6 +22,7 @@ module MainActivity(
     .clk(CLK),  
     .out_clk(CLk)
     );
+
 
 	//Divisor a 25MHz		
 	always @(posedge CLk)begin     
@@ -48,7 +51,7 @@ module MainActivity(
 	
 	
 	
-	
+// Entrada de datos de los registros se divide en buses de 4 bits, de esta manera es posible trabajar cada digito de manera independiente.	
 	
 	pong_text pong_text (
     .clk(DOWNCOUNTER), 
@@ -76,25 +79,16 @@ module MainActivity(
     .text_on(text_on), 
     .text_rgb(text_rgb));
 
-
-	
-//------DATO-FECHA-------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-	
 //-------------------COLOCACION DE IMAGENES-----------------------------------------------------
+//Para la colocaci贸n de imagenes se utiliza la tecnica de mapeo de objetos
+//las im谩genes utilizadas son agregadas al c贸digo por medio de los archivos .list generados con el programa MATLAB
 
-//------INFORMACI覰 DE CONFIGURACI覰------------------------------------------------------------
-	localparam  Xc = 433;
+//------INFORMACI脫N DE CONFIGURACI脫N------------------------------------------------------------
+	localparam  Xc = 433; // Se define la posici贸n a ubicar la imagen
 	localparam  Yc = 35;	
 	reg [7:0] COLOUR_DATA [0:configuracion2-1];
 	parameter configuracion2 = 17'd59823;	
-	parameter configuracion2X = 8'd207;	
+	parameter configuracion2X = 8'd207;	//Se define el tama帽o de la imagen
 	parameter configuracion2Y = 9'd289;	
 	
 	initial
@@ -204,7 +198,7 @@ module MainActivity(
 //------------------------------------------------------------------------------------------------
 
 //------ALARMA-------------------------------------------------------------------------------------
-	
+	//Se coloca una imagen extra para el momento de que se active la alarma del cron贸metro el usuario tambien se pueda dar cuenta al ver la imagen
 	localparam  Xal = 330;
 	localparam  Yal = 330;	
 	reg [7:0] COLOUR_DATA_al [0:alarma-1];
@@ -231,12 +225,13 @@ module MainActivity(
 			end
 	end
 //------------------------------------------------------------------------------------------------
-
-
 wire [7:0]color;
 assign color={text_rgb[2],text_rgb[2],text_rgb[1],text_rgb[1],text_rgb[1],text_rgb[0],text_rgb[0],text_rgb[0]};
 
 //--------MUX------------------------------------------------------------------------------------
+// se crea un MUX para seleccionar la imagen que ser谩 mostrada en la pantalla, esto porque se tiene una unica salida de coulour out, por lo que
+//hay que especificar en que momento sale cada imagen dependiendo de la posici贸n en la que se encuentre
+//Se toman como prioridad los recuadros con los datos de los numeros y caracteres, por encima de las im谩genes que contienen los titulos
 
 always @ (posedge DOWNCOUNTER )
 begin
