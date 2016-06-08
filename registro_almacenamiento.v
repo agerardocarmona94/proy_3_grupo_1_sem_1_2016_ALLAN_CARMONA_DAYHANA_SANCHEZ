@@ -1,22 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    04:25:23 06/03/2016 
-// Design Name: 
-// Module Name:    registro_almacenamiento 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
+// En este modulo se almacena la cuenta del cronometro maxima para que sea comparada posteriormente, en este registro se almacenan los tres registros del teclado
+// y se guardan unicamente cuando el usuario le da guardar
 //////////////////////////////////////////////////////////////////////////////////
 module registro_almacenamiento( 
 input [7:0] dato1,dato2,dato3,tecla,guardar,
