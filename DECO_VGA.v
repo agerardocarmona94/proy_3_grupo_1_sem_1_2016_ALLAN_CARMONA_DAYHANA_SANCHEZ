@@ -1,22 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    22:45:15 06/01/2016 
-// Design Name: 
-// Module Name:    DECO_VGA 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
+// En este modulo se decodifica que se esta escribiendo de manera que se habiliten los registros del VGA necesarios para que se observe en pantalla el cambio respectivo
 //////////////////////////////////////////////////////////////////////////////////
 module DECO_VGA(
 input [7:0] Fs,
