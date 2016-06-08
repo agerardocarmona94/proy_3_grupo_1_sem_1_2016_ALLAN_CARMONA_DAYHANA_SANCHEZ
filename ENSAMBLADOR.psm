@@ -1,5 +1,5 @@
 
-;programa en ensamblador para control del rtc
+;Programa del proyecto en ENSAMBLADOR
 
 ;--------------------------------------------------
 
@@ -18,7 +18,7 @@ CONSTANT      X_22,      0B; 22 CUENTA minuto
 CONSTANT      X_23,      0C; 23 CUENTA hora
 CONSTANT      X_24,      0D; 24 CUENTA dia
 CONSTANT      X_25,      0E; 25 CUENTA mes
-CONSTANT      X_26,      0F; 26 CUENTA año
+CONSTANT      X_26,      0F; 26 CUENTA aÃ±o
 CONSTANT      X_41,      10; 41 CUENTA seg crono
 CONSTANT      X_42,      11; 42 CUENTA min crono
 CONSTANT      X_43,      12; 43 CUENTA hora crono
@@ -40,13 +40,13 @@ CONSTANT      X_2,20;			CONSTANTE F1 ESCRITURA
 
 ;PUERTOS SALIDA
 
-CONSTANT ENABLE_INICIALIZACION ,  01   ;SEÑAL FSM    
-CONSTANT ENABLE_ESCRITURA, 02   ;SEÑAL FSM      
-CONSTANT ENABLE_LECTURA,     03   ;SEÑAL FSM         
+CONSTANT ENABLE_INICIALIZACION ,  01   ;SEÃ‘AL FSM    
+CONSTANT ENABLE_ESCRITURA, 02   ;SEÃ‘AL FSM      
+CONSTANT ENABLE_LECTURA,     03   ;SEÃ‘AL FSM         
 CONSTANT DATO_SALIDA,    04       
 CONSTANT CUENTA_SALIDA,     05 
-CONSTANT CUENTA,       06 ; señala en que parte se va leyendo o escribiendo
-CONSTANT LISTO_FSM,01		;SEÑAL FSM    
+CONSTANT CUENTA,       06 ; seÃ±ala en que parte se va leyendo o escribiendo
+CONSTANT LISTO_FSM,01		;SEÃ‘AL FSM    
 
 
 CONSTANT GUARDAR, 19
@@ -124,7 +124,7 @@ LECTURA:   INPUT  s0, X_1
         OUTPUT s4, ENABLE_LECTURA
         CALL     BUCLE_ESPERA_FSM 
         
-        INPUT  s6, X_26; año
+        INPUT  s6, X_26; aÃ±o
         OUTPUT s6,  CUENTA_SALIDA
         INPUT  s7, CINCO;CUENTA 5
         OUTPUT s7, CUENTA
@@ -208,9 +208,9 @@ CAMBIO_FECHA:
         OUTPUT s4, ENABLE_ESCRITURA  
         CALL     BUCLE_ESPERA_FSM 
         
-        INPUT  s6, X_26; año
+        INPUT  s6, X_26; aÃ±o
         OUTPUT s6, CUENTA_SALIDA
-        INPUT  sB, REGISTRO_3; año
+        INPUT  sB, REGISTRO_3; aÃ±o
         OUTPUT sB, DATO_SALIDA
         INPUT  s7, CINCO;CUENTA 5
         OUTPUT s7, CUENTA
