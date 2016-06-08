@@ -1,4 +1,8 @@
 // Listing 14.6
+//m贸dulo obtenido del libro Pong P chu, al cual se le relaizan una serie de modificaciones para que en el ingresen los datos 
+//provenientes de los registros dirigidos al VGA, este m贸dulo permite determinar la hubicaci贸n de los recuadros con la informaci贸n de la hora, 
+//la fecha y el cronometro
+// Para esto toma los caracteres de la memoria ROM, del cual obtiene la forma de los caracteres
 module pong_text
    (
 	
@@ -32,7 +36,7 @@ module pong_text
 	assign pix_y[0] = 0;
 	
 	
-   assign score_on = (pix_y[9:5]==2) && (pix_x[9:4]<15); //posici髇 en pantalla
+   assign score_on = (pix_y[9:5]==2) && (pix_x[9:4]<15); //posici贸n en pantalla
    assign row_addr_s = pix_y[4:1];  //escalamiento
    assign bit_addr_s = pix_x[3:1];
    always @*
@@ -122,9 +126,9 @@ module pong_text
 			4'h9: char_addr_o = {3'b011, dig3}; // num mes
          4'ha: char_addr_o = 7'h00; //
 			4'hb: char_addr_o = 7'h00; //
-         4'hc: char_addr_o = 7'h32; //num a駉
-         4'hd: char_addr_o = 7'h30; //num a駉
-			4'he: char_addr_o = {3'b011, dig4}; //num a駉
+         4'hc: char_addr_o = 7'h32; //num a帽o
+         4'hd: char_addr_o = 7'h30; //num a帽o
+			4'he: char_addr_o = {3'b011, dig4}; //num a帽o
 			4'hf: char_addr_o = {3'b011, dig5};
       endcase
 		
@@ -274,7 +278,7 @@ module pong_text
       endcase
 		
 		
-//declaraci髇 de los colores y salidas mediante un MUX
+//declaraci贸n de los colores y salidas mediante un MUX
    always @*
    begin
       text_rgb = 3'b111;  // fondo blanco
