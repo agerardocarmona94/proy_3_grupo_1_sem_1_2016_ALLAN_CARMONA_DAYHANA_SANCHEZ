@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //-----------------------------------------------------------------
-/*En este modulo se decodifica la activcion de los enable de cada registro que van al VGA
-*/
+/*En este modulo se decodifica la activcion de los enable de cada registro que van al VGA con el fin de habilitarlos unicamente cuando estamos
+ estamos seguros de que los datos son los correctos  */
 //-------------------------------------------------------------------
 module decodificador_enable(
 input wire [7:0] direccion,  //la entrada corresponde a la direccion que va recorriendo el picoblaze en las secuencias de lectura y escritura
