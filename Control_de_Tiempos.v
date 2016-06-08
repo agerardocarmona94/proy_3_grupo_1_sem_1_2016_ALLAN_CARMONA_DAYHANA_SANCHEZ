@@ -1,23 +1,10 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    17:47:06 04/11/2016 
-// Design Name: 
-// Module Name:    Control_de_Tiempos 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------------
+/*
+En este modulo se obtienen la señales de salida de la maquina de estados , este modulo conrresponde al mismo del segundo proyecto
+PARTE FINAL DE LA FSM
+*/
+//-------------------------------------------------------------------------------------------
 module Control_de_Tiempos(
 	 input enable_inicio,         
 	 input enable_escribir,
