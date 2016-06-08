@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 //-------------------------------------------------------------
 /*
-En este bloque se almacenan por medio de registros la salida del picoblaze segun el lugar el periferico en donde 
-se desea guardar, ademas se organizan las salias del picoblaze por medio de las señales de control
+En este bloque se almacenan por medio de registros la salida del picoblaze segun el periferico en donde 
+se desea guardar, ademas se habilitan las salidas del picoblaze por medio de las seÃ±ales de control
 Write strobe y port id
 
 */
