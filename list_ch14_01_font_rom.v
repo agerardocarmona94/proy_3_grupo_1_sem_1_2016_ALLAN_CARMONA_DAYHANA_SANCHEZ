@@ -4,6 +4,8 @@
 //  - 128 (2^7) characters
 //  - ROM size: 512-by-8 (2^11-by-8) bits
 //              16K bits: 1 BRAM
+// modulo tomado del libro pong P Chu, del cual se tiene la información para crear cada uno de los caracteres a utilizar, esto por
+//medio de recuadros. (Tiles)
 
 module font_rom
    (
